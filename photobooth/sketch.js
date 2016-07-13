@@ -8,6 +8,12 @@ function setup() {
   background(51);
   video = createCapture(VIDEO, ready);
   video.size(320, 240);
+  button = createButton('Stop/Start');
+  button.mousePressed(stopStartVideo);
+}
+
+function stopStartVideo() {
+  go = !go;
 }
 
 var go = false;
@@ -17,10 +23,11 @@ function ready() {
 }
 
 function draw() {
+  var maxSnapshots = 43;
   if (go) {
     snapshots[counter] = video.get();
     counter++;
-    if (counter == 40) {
+    if (counter == maxSnapshots) {
       counter = 0;
     }
   }
@@ -29,8 +36,9 @@ function draw() {
   var x = 0;
   var y = 0;
   for (var i = 0; i < snapshots.length; i++) {
-    tint(255, 50);
-    image(snapshots[i], x, y, w, h);
+    //tint(255, 50);
+    var index = (i + frameCount) % snapshots.length;
+    image(snapshots[index], x, y, w, h);
     x = x + w;
     if (x > width) {
       x = 0;

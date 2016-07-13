@@ -21,6 +21,14 @@ function draw() {
       var b = video.pixels[index + 2];
 
       var brightness = (r+g+b)/3;
+      var threshold = 127;
+
+      if (brightness > threshold) {
+        fill(255);
+      } else {
+        fill(0);
+      }
+
       fill(brightness);
       rect(x * vScale, y * vScale, vScale, vScale);
     }
